@@ -70,6 +70,7 @@ Refer to the README templates in the class repository `Resources` folder for an 
 The lab rubric can be found [Here](../../Resources/rubric){:target="_blank"} 
 
 ## To Submit this Assignment
+
 - Create a new repository on your personal GitHub account
 - Name your repository `Lab##-TITLE`
 - Create a branch named `NAME-LAB##`
