@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using StudentEnrollmentAPI.Models;
 using System;
@@ -18,6 +19,9 @@ namespace StudentEnrollmentAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // this tells the db that the enrollments table has a combination composite key of the courseid and studentid
+            modelBuilder.Entity<Enrollments>().HasKey(x => new { x.CourseId, x.StudentId });
+
             modelBuilder.Entity<Student>().HasData(
                 new Student
                 {
@@ -60,5 +64,7 @@ namespace StudentEnrollmentAPI.Data
         // add-migration intial
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Enrollments> Enrollments { get; set; }
+        public DbSet<StudentEnrollmentAPI.Models.Transcript> Transcript { get; set; }
     }
 }

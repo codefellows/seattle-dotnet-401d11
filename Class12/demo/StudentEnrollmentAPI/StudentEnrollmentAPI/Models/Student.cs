@@ -12,6 +12,9 @@ namespace StudentEnrollmentAPI.Models
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }
 
+        //Nav propery
+        public List<Enrollments> Enrollments { get; set; }
+
         // Nav properties can wait. we will add those in a couple of days.
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentEnrollmentAPI.Data;
 using StudentEnrollmentAPI.Models;
+using StudentEnrollmentAPI.Models.Interfaces;
 
 namespace StudentEnrollmentAPI.Controllers
 {
@@ -14,32 +15,25 @@ namespace StudentEnrollmentAPI.Controllers
     [ApiController]
     public class CoursesController : ControllerBase
     {
-        private readonly SchoolEnrollmentDbContext _context;
+        private readonly ICourse _course;
 
-        public CoursesController(SchoolEnrollmentDbContext context)
+        public CoursesController(ICourse course)
         {
-            _context = context;
+            _course = course;
         }
 
         // GET: api/Courses
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Course>>> GetCourses()
         {
-            return await _context.Courses.ToListAsync();
+            return await _course.GetCourses();
         }
 
         // GET: api/Courses/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
-
-            if (course == null)
-            {
-                return NotFound();
-            }
-
-            return course;
+            return await _course.GetCourse(id);
         }
 
         // PUT: api/Courses/5
@@ -53,25 +47,9 @@ namespace StudentEnrollmentAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(course).State = EntityState.Modified;
+            var updatedCourse = await _course.Update(course);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CourseExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(updatedCourse);
         }
 
         // POST: api/Courses
@@ -80,31 +58,38 @@ namespace StudentEnrollmentAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Course>> PostCourse(Course course)
         {
-            _context.Courses.Add(course);
-            await _context.SaveChangesAsync();
+            await _course.Create(course);
 
             return CreatedAtAction("GetCourse", new { id = course.Id }, course);
+        }
+
+        [HttpPost]
+        [Route("{courseId}/{studentId}")]
+        // POST: {courseId}/{studentId}
+        // Model Binding
+        public async Task<IActionResult> AddStudentToCourse(int courseId, int studentId)
+        {
+            await _course.AddStudent(studentId, courseId);
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("{courseId}/{studentId}")]
+        public async Task<IActionResult> RemoveStudentFromCourse(int courseId, int studentId)
+        {
+            await _course.RemoveStudentFromCourse(courseId, studentId);
+            return Ok();
         }
 
         // DELETE: api/Courses/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Course>> DeleteCourse(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
-            if (course == null)
-            {
-                return NotFound();
-            }
+            await _course.Delete(id);
 
-            _context.Courses.Remove(course);
-            await _context.SaveChangesAsync();
-
-            return course;
+            return NoContent();
         }
 
-        private bool CourseExists(int id)
-        {
-            return _context.Courses.Any(e => e.Id == id);
-        }
+
     }
 }

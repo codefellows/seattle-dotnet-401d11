@@ -36,10 +36,19 @@ namespace StudentEnrollmentAPI.Models.Services
 
         }
 
+        public void MyTestMethod()
+        {
+
+        }
+
         public async Task<Student> GetStudent(int id)
         {
             // look in the db on the student table, where the id is equal to the id that was brought in as an argument
             Student student = await _context.Students.FindAsync(id);
+            var enrollments = await _context.Enrollments.Where(x => x.StudentId == id)
+                                                   .Include(x => x.Course)
+                                                   .ToListAsync();
+            student.Enrollments = enrollments;
             return student;
         }
 

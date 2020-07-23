@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentEnrollmentAPI.Data;
 
 namespace StudentEnrollmentAPI.Migrations
 {
     [DbContext(typeof(SchoolEnrollmentDbContext))]
-    partial class SchoolEnrollmentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200723164224_newEnrollmentsTable")]
+    partial class newEnrollmentsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,21 +58,6 @@ namespace StudentEnrollmentAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("StudentEnrollmentAPI.Models.Enrollments", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId", "StudentId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Enrollments");
-                });
-
             modelBuilder.Entity("StudentEnrollmentAPI.Models.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -106,21 +93,6 @@ namespace StudentEnrollmentAPI.Migrations
                             FirstName = "Kate",
                             LastName = "Austin"
                         });
-                });
-
-            modelBuilder.Entity("StudentEnrollmentAPI.Models.Enrollments", b =>
-                {
-                    b.HasOne("StudentEnrollmentAPI.Models.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudentEnrollmentAPI.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
