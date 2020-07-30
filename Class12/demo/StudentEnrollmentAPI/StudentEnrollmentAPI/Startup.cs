@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,10 +39,14 @@ namespace StudentEnrollmentAPI
             // this is where all of our dependencies are going to live. 
             // Enable the use of using controllers within the MVC convention
             // Install - Package Microsoft.AspNetCore.Mvc.NewtonsoftJson - Version 3.1.2
-            services.AddControllers().AddNewtonsoftJson(options =>
+            services.AddControllers(options =>
+            {
+                // Make all routes by default authorized to require login
+                options.Filters.Add(new AuthorizeFilter());
+            })
+                .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
-
 
             // Register with the app, that the database exists, and what options to use for it. 
             services.AddDbContext<SchoolEnrollmentDbContext>(options =>
@@ -77,10 +82,11 @@ namespace StudentEnrollmentAPI
 
 
             // Add my policies.
-            services.AddAuthorization( options =>
-            {
-                options.AddPolicy("PrincipalOnly", policy => policy.RequireRole(ApplicationRoles.Principal));
-            });
+            services.AddAuthorization(options =>
+           {
+               options.AddPolicy("ElevatedPrivlidges", policy => policy.RequireRole(ApplicationRoles.Principal, ApplicationRoles.Advisor));
+               options.AddPolicy("ColorPolicy", policy => policy.RequireClaim("FavoriteColor"));
+           });
 
             // register my Dependency Injection Services
             services.AddTransient<IStudent, StudentRepository>();
@@ -102,7 +108,9 @@ namespace StudentEnrollmentAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-            RoleInitializer.SeedData(serviceProvider);
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            RoleInitializer.SeedData(serviceProvider, userManager, Configuration);
 
             app.UseEndpoints(endpoints =>
             {

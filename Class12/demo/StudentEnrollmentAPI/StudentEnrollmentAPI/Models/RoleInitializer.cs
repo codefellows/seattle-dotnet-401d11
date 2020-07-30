@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudentEnrollmentAPI.Data;
 using System;
@@ -22,14 +23,36 @@ namespace StudentEnrollmentAPI.Models
 
         };
 
-        public static void SeedData(IServiceProvider serviceProvider)
+        public static void SeedData(IServiceProvider serviceProvider, UserManager<ApplicationUser> users, IConfiguration _config)
         {
             using (var dbContext = new SchoolEnrollmentDbContext(serviceProvider.GetRequiredService<DbContextOptions<SchoolEnrollmentDbContext>>()))
             {
                 dbContext.Database.EnsureCreated();
                 AddRoles(dbContext);
+                SeedUsers(users, _config);
             }
         }
+
+        private static void SeedUsers(UserManager<ApplicationUser> userManager, IConfiguration _config)
+        {
+            if (userManager.FindByEmailAsync(_config["AdminEmail"]).Result == null)
+            {
+                ApplicationUser user = new ApplicationUser();
+                user.UserName = _config["AdminEmail"];
+                user.Email = _config["AdminEmail"];
+                user.FirstName = "Amanda";
+                user.LastName = "Iverson";
+
+                IdentityResult result = userManager.CreateAsync(user, _config["AdminPassword"]).Result;
+
+                if (result.Succeeded)
+                {
+                    userManager.AddToRoleAsync(user, ApplicationRoles.Principal).Wait();
+                }
+            }
+
+        }
+
 
         private static void AddRoles(SchoolEnrollmentDbContext context)
         {

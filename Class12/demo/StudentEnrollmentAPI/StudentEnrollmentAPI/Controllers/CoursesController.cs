@@ -45,6 +45,9 @@ namespace StudentEnrollmentAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCourse(int id, Course course)
         {
+            // Call the user service
+
+            
             if (id != course.Id)
             {
                 return BadRequest();
