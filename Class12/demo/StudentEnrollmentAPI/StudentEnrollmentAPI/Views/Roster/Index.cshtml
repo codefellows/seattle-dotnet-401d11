@@ -1,0 +1,22 @@
+﻿@* Declaring this page to use a list of students *@
+@model List<StudentEnrollmentAPI.Models.Student>
+<!Doctype html>
+
+<html>
+<head>
+    <title> Class Demo</title>
+</head>
+
+<body>
+    <h1> Welcome to my Website!</h1>
+
+    @* Razor Syntax *@
+
+    @foreach (var item in Model)
+    {
+          <h3>@item.FirstName @item.LastName </h3>
+          <p> @item.Birthdate</p>
+          <hr />
+    }
+</body>
+</html>

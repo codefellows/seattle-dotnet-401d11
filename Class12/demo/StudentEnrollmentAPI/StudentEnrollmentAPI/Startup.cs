@@ -39,7 +39,7 @@ namespace StudentEnrollmentAPI
             // this is where all of our dependencies are going to live. 
             // Enable the use of using controllers within the MVC convention
             // Install - Package Microsoft.AspNetCore.Mvc.NewtonsoftJson - Version 3.1.2
-            services.AddControllers(options =>
+            services.AddControllersWithViews(options =>
             {
                 // Make all routes by default authorized to require login
                 options.Filters.Add(new AuthorizeFilter());
@@ -108,6 +108,8 @@ namespace StudentEnrollmentAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
+            // VERY IMPORTANT!
+            app.UseStaticFiles();
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             RoleInitializer.SeedData(serviceProvider, userManager, Configuration);
