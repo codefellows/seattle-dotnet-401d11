@@ -1,0 +1,15 @@
+﻿<!-- Declaring that we will have this page showcase the shape of a single post-->
+@model Class26Demo.Models.ViewModels.BlogPostsVM
+
+<h1>Hello World</h1>
+
+<!--Output the post to the page-->
+<h2>@(Model.Post.Title == null?"No Title":@Model.Post.Title)</h2>
+<p>@(Model.Post.Description == null?"No Description" : @Model.Post.Description)</p>
+
+
+<h3>Details of Blog</h3>
+<p>@Model.Blog.AuthorName</p>
+<a asp-action="Details" asp-controller="Posts" asp-route-title="@Model.Post.Title" asp-route-description="@Model.Post.Description">View</a>
+<!--TagHelpers-->
+

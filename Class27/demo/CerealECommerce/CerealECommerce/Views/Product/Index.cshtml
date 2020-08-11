@@ -1,0 +1,15 @@
+﻿@model CerealECommerce.Models.ViewModels.ProductsViewModel
+
+<h2>Cereals!</h2>
+
+<form method="post">
+    <input type="text" asp-for="@Model.Term" />
+    <button type="submit">Search</button>
+</form>
+
+@foreach (var item in Model.Products)
+{
+    <h3>@item.Name</h3>
+    <p>@item.Mfr</p>
+    <hr />
+}

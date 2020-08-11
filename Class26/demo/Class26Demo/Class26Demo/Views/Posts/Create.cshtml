@@ -1,0 +1,14 @@
+﻿@model Class26Demo.Models.Post
+
+<h1> Create a new post</h1>
+    <form method="post">
+
+        <label asp-for="@Model.Title"></label>
+        <input asp-for="@Model.Title" />
+
+        <label asp-for="@Model.Description"></label>
+        <textarea type="text" asp-for="@Model.Description"> </textarea>
+
+        <button type="submit">Create Post!</button>
+
+    </form>

@@ -1,0 +1,15 @@
+﻿@page
+@model CerealECommerce.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<h1>Register</h1>
+
+
+<form method="post">
+    <label asp-for="@Model.Input.FirstName"></label>
+    <input asp-for="@Model.Input.FirstName" />
+    <button type="submit">SUBMIT</button>
+</form>
