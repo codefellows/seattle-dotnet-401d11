@@ -1,11 +1,13 @@
 # Design Patterns
 
 Thursday's Code Reviews will be you teaching the class about a specific design pattern assigned. The presentation should contain the following:
-1. Slide Deck 
-2. Advantages
-3. Disadvantages
-4. Real world example
-5. Highlighted summary
+1. Slide Deck
+1. Introduction (UML diagram of the pattern)
+1. Advantages
+1. Disadvantages
+1. Real world example
+1. Code Snippet (if possible)
+1. Highlighted summary
 
 ## Thursday, August 20
 
