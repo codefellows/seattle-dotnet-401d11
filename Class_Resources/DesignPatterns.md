@@ -25,7 +25,7 @@ Thursday's Code Reviews will be you teaching the class about a specific design p
 
 ## Thursday, September 3
 
-9. Observer - Andrew
+9. Andrew - Observer
 10. Yasir - Strategy
 11. Michael - Momento
 12. Robert - Adapter
