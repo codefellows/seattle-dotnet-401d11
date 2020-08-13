@@ -1,0 +1,22 @@
+﻿@page
+@model ImageBlobUpload.Pages.Dashboard.AdminModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>Admin</h1>
+
+
+<!-- Ability to upload a file-->
+
+
+<form method="post" enctype="multipart/form-data">
+    <label asp-for="@Model.Name"></label>
+    <input asp-for="@Model.Name" />
+
+    <label asp-for="@Model.Image"></label>
+    <input type="file" asp-for="@Model.Image" />
+
+    <button type="submit">Upload Image</button>
+
+</form>

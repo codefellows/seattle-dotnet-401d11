@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageBlobUpload", "ImageBlobUpload\ImageBlobUpload.csproj", "{71491BCF-E0AE-447A-87E1-A45FB13689FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71491BCF-E0AE-447A-87E1-A45FB13689FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71491BCF-E0AE-447A-87E1-A45FB13689FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71491BCF-E0AE-447A-87E1-A45FB13689FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71491BCF-E0AE-447A-87E1-A45FB13689FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {11E25333-40FA-4A0F-BE49-3A129F776CB6}
+	EndGlobalSection
+EndGlobal
