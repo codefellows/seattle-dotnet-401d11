@@ -1,0 +1,30 @@
+﻿@page
+@model CerealECommerce.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<h1>Register</h1>
+
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <label asp-for="@Model.Input.FirstName"></label>
+    <input asp-for="@Model.Input.FirstName" />
+    <span asp-validation-for="@Model.Input.FirstName"></span><br /> <br />
+
+    <label asp-for="@Model.Input.LastName"></label>
+    <input asp-for="@Model.Input.LastName" /><br /> <br />
+
+    <label asp-for="@Model.Input.Email"></label>
+    <input asp-for="@Model.Input.Email" /><br /> <br />
+
+    <label asp-for="@Model.Input.Password"></label>
+    <input asp-for="@Model.Input.Password" /><br /> <br />
+
+    <label asp-for="@Model.Input.ConfirmPassword"></label>
+    <input asp-for="@Model.Input.ConfirmPassword" />
+
+    <button type="submit">SUBMIT</button>
+</form>

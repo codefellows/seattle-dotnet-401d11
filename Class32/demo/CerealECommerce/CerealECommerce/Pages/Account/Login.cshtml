@@ -1,0 +1,21 @@
+﻿@page
+@model CerealECommerce.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<form method="post">
+
+    <div asp-validation-summary="All"></div>
+    <label asp-for="@Model.Input.Email"></label>
+    <input asp-for="@Model.Input.Email" /> <br /><br />
+
+    <label asp-for="@Model.Input.Password"></label>
+    <input asp-for="@Model.Input.Password" /> <br /><br />
+
+    <button type="submit">LOGIN</button>
+
+</form>
+
